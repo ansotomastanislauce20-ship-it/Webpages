@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueTide Facility Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #0d2137;
+  --navy-mid:  #153352;
+  --gold:      #c9a227;
+  --gold-lt:   #e8c558;
+  --white:     #ffffff;
+  --off:       #f7f8fa;
+  --t1:        #0d2137;
+  --t2:        #5a6a7e;
+  --t3:        #9aaab8;
+  --r-lg:      22px;
+  --r-xl:      32px;
+  --r-pill:    100px;
+  --sh-s:      0 2px 18px rgba(13,33,55,0.07);
+  --sh-m:      0 8px 40px rgba(13,33,55,0.11);
+  --sh-l:      0 20px 64px rgba(13,33,55,0.16);
+  --ease:      cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--t1); overflow-x: hidden; -webkit-font-smoothing: antialiased; background: var(--off); }
+
+/* ── LAYERED BACKGROUND ── */
+#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.bg-noise {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+.bg-grid {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(13,33,55,0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 100%);
+}
+nav, section, .band, footer, .cta-wrap { position: relative; z-index: 2; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 62px; padding: 0 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  transition: box-shadow .3s var(--ease);
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+.nav-mark {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(145deg, var(--navy-mid), var(--navy));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(13,33,55,.28), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.nav-mark svg { width: 17px; height: 17px; }
+.nav-brand { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15.5px; color: var(--navy); letter-spacing: -.3px; }
+.nav-brand span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--t2); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--navy); }
+.nav-book {
+  background: var(--navy) !important; color: #fff !important;
+  padding: 10px 22px; border-radius: var(--r-pill);
+  font-weight: 600 !important; font-size: 13px !important;
+  box-shadow: 0 2px 14px rgba(13,33,55,.28);
+  transition: all .25s var(--ease) !important; cursor: pointer;
+  border: none; font-family: 'Outfit', sans-serif;
+}
+.nav-book:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(13,33,55,.38) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; padding: 118px 5vw 80px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 56px;
+}
+.hero-glass {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-xl); padding: 50px 46px;
+  box-shadow: var(--sh-m), inset 0 1px 0 rgba(4, 1, 43, 0.993);
+  animation: fadeUp .7s var(--ease) both;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255, 255, 255, 0); border: 1px solid rgba(201,162,39,.25);
+  padding: 6px 15px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 700; color: var(--gold);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 22px;
+}
+.hero-tag::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+.hero-h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(38px, 4.6vw, 64px);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -2px; color: var(--navy); margin-bottom: 18px;
+}
+.hero-h1 em {
+  font-style: normal;
+  background: linear-gradient(125deg, var(--gold) 20%, var(--gold-lt) 80%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-p { font-size: 16px; color: var(--t2); line-height: 1.72; max-width: 390px; margin-bottom: 34px; }
+.hero-btns { display: flex; gap: 11px; flex-wrap: wrap; margin-bottom: 42px; }
+
+.btn-p {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--navy); color: #fff;
+  padding: 14px 28px; border-radius: var(--r-pill);
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 14.5px;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 4px 22px rgba(13,33,55,.32);
+  transition: all .25s var(--ease);
+}
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(13,33,55,.42); }
+
+.btn-s {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.7); backdrop-filter: blur(12px);
+  color: var(--navy); padding: 14px 24px; border-radius: var(--r-pill);
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 14.5px;
+  text-decoration: none; border: 1.5px solid rgba(13,33,55,.12);
+  transition: all .25s var(--ease);
+}
+.btn-s:hover { background: rgba(255,255,255,.92); border-color: rgba(13,33,55,.22); }
+
+.hero-stats { display: flex; gap: 30px; padding-top: 30px; border-top: 1px solid rgba(13,33,55,.07); }
+.stat-n { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: -1px; }
+.stat-l { font-size: 12px; color: var(--t3); margin-top: 2px; }
+
+.hero-visual { position: relative; animation: fadeIn .8s .25s var(--ease) both; }
+.hero-card {
+  background: rgba(255,255,255,.74); backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: var(--r-xl); padding: 26px;
+  box-shadow: var(--sh-l), inset 0 1px 0 rgba(255,255,255,.95);
+}
+.hero-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.hero-img { border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
+.hero-img.tall { grid-row: span 2; aspect-ratio: auto; }
+.hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
+.hero-img:hover img { transform: scale(1.06); }
+.hero-badge {
+  display: flex; align-items: center; gap: 13px;
+  background: rgba(255, 255, 255, 0.04); border-radius: 14px; padding: 13px 16px;
+}
+.badge-ico {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: linear-gradient(145deg, var(--navy-mid), var(--navy));
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(13,33,55,.2);
+}
+.badge-t { font-size: 13px; color: var(--t2); line-height: 1.4; }
+.badge-t strong { display: block; font-weight: 600; color: var(--navy); font-size: 13.5px; }
+.fpill {
+  position: absolute;
+  background: rgba(253, 252, 253, 0); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.96); border-radius: var(--r-pill);
+  padding: 9px 18px; box-shadow: 0 8px 32px rgba(13,33,55,.13);
+  font-size: 12.5px; font-weight: 600; color: var(--navy);
+  display: flex; align-items: center; gap: 7px; white-space: nowrap;
+  animation: float 4s ease-in-out infinite;
+}
+.fpill.t { top: -20px; right: -16px; animation-delay: .3s; }
+.fpill.b { bottom: -16px; left: -16px; animation-delay: 1.1s; }
+.dot-g { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.22); }
+
+/* ── SHARED SECTION ── */
+section { padding: 96px 5vw; }
+.ey { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 11px; }
+.st { font-family: 'Outfit', sans-serif; font-size: clamp(29px, 3.6vw, 48px); font-weight: 800; letter-spacing: -1.4px; color: var(--navy); line-height: 1.08; margin-bottom: 14px; }
+.ss { font-size: 16px; color: var(--t2); line-height: 1.72; max-width: 480px; margin-bottom: 52px; }
+
+/* ── SERVICES ── */
+#services {
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,.75); border-bottom: 1px solid rgba(255,255,255,.75);
+}
+.svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px,1fr)); gap: 16px; }
+.svc-card {
+  background: rgba(255,255,255,.82); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.92); border-radius: var(--r-lg);
+  padding: 28px 24px; box-shadow: var(--sh-s);
+  transition: all .32s var(--ease); cursor: pointer; position: relative; overflow: hidden;
+}
+.svc-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--navy), var(--gold));
+  opacity: 0; transition: opacity .3s; border-radius: 2px 2px 0 0;
+}
+.svc-card:hover { transform: translateY(-7px); box-shadow: var(--sh-m); background: rgba(255,255,255,.96); }
+.svc-card:hover::after { opacity: 1; }
+.svc-ico { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; transition: transform .3s var(--ease); }
+.svc-card:hover .svc-ico { transform: scale(1.1) rotate(-4deg); }
+.si-b { background: rgba(13,33,55,.08); }
+.si-g { background: rgba(201,162,39,.1); }
+.si-t { background: rgba(20,184,166,.09); }
+.si-r { background: rgba(244,63,94,.07); }
+.si-v { background: rgba(139,92,246,.08); }
+.si-o { background: rgba(249,115,22,.08); }
+.si-e { background: rgba(16,185,129,.08); }
+.si-s { background: rgba(14,165,233,.08); }
+.svc-name { font-family: 'Outfit', sans-serif; font-size: 16.5px; font-weight: 700; letter-spacing: -.4px; color: var(--navy); margin-bottom: 7px; }
+.svc-desc { font-size: 13px; color: var(--t2); line-height: 1.65; margin-bottom: 16px; }
+.svc-book-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600; color: var(--navy);
+  background: rgba(13,33,55,.06); border: none; border-radius: 20px;
+  padding: 8px 16px; cursor: pointer; transition: all .2s var(--ease);
+  font-family: 'Outfit', sans-serif;
+}
+.svc-book-btn:hover { background: var(--navy); color: #fff; }
+
+/* ── FEATURED DARK BAND ── */
+.band {
+  background: var(--navy); margin: 0 5vw; border-radius: var(--r-xl);
+  padding: 78px 5vw; position: relative; overflow: hidden;
+}
+.band::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 85% 40%, rgba(201,162,39,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(30,74,118,.55) 0%, transparent 60%);
+  pointer-events: none;
+}
+.band::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 38px 38px; pointer-events: none;
+}
+.band .ey { color: var(--gold-lt); }
+.band .st { color: #fff; }
+.band .ss { color: rgba(255,255,255,.5); }
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; position: relative; z-index: 1; }
+.feat-card {
+  background: rgba(255,255,255,.055); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.09); border-radius: var(--r-lg);
+  padding: 30px; transition: all .3s var(--ease); cursor: default;
+}
+.feat-card:hover { background: rgba(255,255,255,.1); border-color: rgba(201,162,39,.3); transform: translateY(-5px); }
+.feat-ico {
+  width: 46px; height: 46px;
+  background: rgba(201,162,39,.15); border: 1px solid rgba(201,162,39,.2);
+  border-radius: 13px; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 18px;
+}
+.feat-card h3 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -.4px; color: #fff; margin-bottom: 9px; }
+.feat-card p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.65; }
+
+/* ── WHY ── */
+#why { background: rgba(255,255,255,.9); border-top: 1px solid rgba(13,33,55,.05); border-bottom: 1px solid rgba(13,33,55,.05); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 76px; align-items: center; }
+.why-vis { position: relative; }
+.why-vis::before {
+  content: ''; position: absolute;
+  top: -18px; left: -18px; right: 18px; bottom: 18px;
+  border: 2px solid rgba(201,162,39,.18);
+  border-radius: calc(var(--r-xl) + 8px); pointer-events: none;
+}
+.why-img { border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--sh-l); }
+.why-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.why-ov {
+  position: absolute; bottom: 26px; left: 26px; right: 26px;
+  background: rgba(255,255,255,.93); backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,.96); border-radius: 16px;
+  padding: 17px 20px; display: flex; align-items: center; gap: 13px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.09);
+}
+.ov-ava {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.ov-t strong { display: block; font-size: 13.5px; font-weight: 600; color: var(--navy); }
+.ov-t span   { font-size: 12px; color: var(--t3); }
+.stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+.why-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.why-item {
+  display: flex; gap: 15px; align-items: flex-start;
+  padding: 17px 19px; background: var(--off);
+  border-radius: 17px; border: 1px solid rgba(13,33,55,.04);
+  transition: all .25s var(--ease); cursor: default;
+}
+.why-item:hover { background: rgba(13,33,55,.035); transform: translateX(6px); border-color: rgba(201,162,39,.2); }
+.wi-ico {
+  width: 42px; height: 42px; flex-shrink: 0;
+  background: var(--navy); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; box-shadow: 0 2px 10px rgba(13,33,55,.18);
+}
+.wi-t h4 { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.wi-t p  { font-size: 13px; color: var(--t2); line-height: 1.6; }
+
+/* ── CTA ── */
+.cta-wrap { padding: 80px 5vw 96px; }
+.cta-box {
+  background: linear-gradient(145deg, var(--navy) 0%, #0a1c2e 100%);
+  border-radius: var(--r-xl); padding: 80px 40px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-box::before {
+  content: ''; position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,162,39,.14) 0%, transparent 70%);
+  border-radius: 50%; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: breathe 6s ease-in-out infinite;
+}
+.cta-box::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 24px 24px; border-radius: var(--r-xl);
+}
+.cta-ey { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 14px; position: relative; z-index: 1; }
+.cta-h  { font-family: 'Outfit', sans-serif; font-size: clamp(28px, 3.6vw, 48px); font-weight: 800; color: #fff; letter-spacing: -1.4px; line-height: 1.08; margin-bottom: 18px; position: relative; z-index: 1; }
+.cta-p  { font-size: 16px; color: rgba(255,255,255,.5); max-width: 400px; margin: 0 auto 38px; line-height: 1.72; position: relative; z-index: 1; }
+.cta-book-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  padding: 17px 38px; border-radius: var(--r-pill);
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px;
+  border: none; cursor: pointer; position: relative; z-index: 1;
+  box-shadow: 0 4px 24px rgba(201,162,39,.4);
+  transition: all .25s var(--ease); margin-bottom: 28px;
+}
+.cta-book-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(201,162,39,.5); background: var(--gold-lt); }
+.cta-pills { display: flex; justify-content: center; gap: 13px; flex-wrap: wrap; margin-bottom: 26px; position: relative; z-index: 1; }
+.cpill {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(255,255,255,.09); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.14); border-radius: var(--r-pill);
+  padding: 14px 24px; color: #fff; text-decoration: none;
+  font-family: 'Outfit', sans-serif; font-size: 14.5px; font-weight: 600;
+  transition: all .25s var(--ease);
+}
+.cpill:hover { background: rgba(255,255,255,.16); border-color: rgba(201,162,39,.4); transform: translateY(-2px); }
+.cta-email { font-size: 13px; color: rgba(255,255,255,.32); display: flex; align-items: center; justify-content: center; gap: 7px; position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════
+   FLOATING SOCIAL SIDEBAR
+══════════════════════════════════════ */
+.social-sidebar {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Pulsing ring behind WhatsApp button */
+.wa-pulse-wrap {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  z-index: 399;
+  pointer-events: none;
+}
+.wa-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.38);
+  transform: translateY(calc(-50% - 30px));
+  animation: waPulse 2.6s ease-out infinite;
+}
+@keyframes waPulse {
+  0%   { transform: translateY(calc(-50% - 30px)) scale(1);   opacity: .6; }
+  100% { transform: translateY(calc(-50% - 30px)) scale(2.3); opacity: 0; }
+}
+
+/* The pill buttons */
+.social-pill {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px rgba(13,33,55,.22);
+  transition: width .32s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow .3s, transform .25s;
+  cursor: pointer;
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+.social-pill:hover {
+  width: 150px;
+  box-shadow: 0 8px 36px rgba(13,33,55,.3);
+  transform: translateX(4px);
+}
+.social-pill.wa { background: #25D366; }
+.social-pill.tt {
+    background: #111;}
+.social-pill.ig { background: #f0730d;}
+
+
+.social-pill-ico {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-pill-ico svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+  display: block;
+}
+
+.social-pill-lbl {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  padding-right: 18px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity .22s .06s, transform .22s .06s;
+  letter-spacing: .2px;
+}
+.social-pill:hover .social-pill-lbl {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy); padding: 38px 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 18px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.foot-brand { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; color: #fff; }
+.foot-brand span { color: var(--gold); }
+.foot-tag { font-size: 12px; color: rgba(255,255,255,.28); margin-top: 3px; }
+
+/* Social buttons in footer */
+.foot-social {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.foot-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px 10px 14px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1px;
+  transition: all .25s var(--ease);
+  border: 1px solid transparent;
+}
+.foot-social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.foot-social-link.wa {
+  background: rgba(37, 211, 102, .13);
+  color: #4ade80;
+  border-color: rgba(37, 211, 102, .22);
+}
+.foot-social-link.wa:hover {
+  background: #25D366;
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(37,211,102,.38);
+}
+.foot-social-link.tt {
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.65);
+  border-color: rgba(255,255,255,.1);
+}
+.foot-social-link.tt:hover {
+  background: rgba(255,255,255,.14);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+}
+foot-social-link.ig {
+   background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.65);
+  border-color: rgba(255,255,255,.1);
+}
+.foot-social-link.ig:hover {
+   background: rgba(255,255,255,.14);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+}
+
+.foot-links { display: flex; gap: 22px; list-style: none; }
+.foot-links a { font-size: 13px; color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+.foot-links a:hover { color: rgba(255,255,255,.75); }
+.foot-copy { font-size: 12px; color: rgba(255,255,255,.22); }
+
+/* ══════════════════════════════════════
+   BOOKING MODAL
+══════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(10,20,35,.55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s var(--ease);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: #02062c; border-radius: 28px;
+  width: 100%; max-width: 560px;
+  box-shadow: 0 32px 96px rgba(13,33,55,.28);
+  overflow: hidden;
+  transform: translateY(32px) scale(.97);
+  transition: transform .35s var(--ease);
+  max-height: 92vh; display: flex; flex-direction: column;
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-head {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  padding: 28px 32px 24px; position: relative; flex-shrink: 0;
+}
+.modal-head::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 22px 22px; pointer-events: none;
+}
+.modal-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,.12); border: none; cursor: pointer;
+  color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  transition: background .2s; z-index: 1;
+}
+.modal-close:hover { background: rgba(255,255,255,.22); }
+.modal-title { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -.5px; position: relative; z-index: 1; }
+.modal-sub { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 4px; position: relative; z-index: 1; }
+
+.steps-bar { display: flex; align-items: center; margin-top: 22px; position: relative; z-index: 1; }
+.step-dot {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700;
+  background: rgba(255,255,255,.15); color: rgba(255,255,255,.5);
+  border: 1.5px solid rgba(255,255,255,.2); transition: all .3s var(--ease);
+}
+.step-dot.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.step-dot.done { background: rgba(255,255,255,.22); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.3); }
+.step-line { flex: 1; height: 1.5px; background: rgba(255,255,255,.15); margin: 0 6px; transition: background .3s; }
+.step-line.done { background: rgba(255,255,255,.4); }
+
+.modal-body { padding: 28px 32px 32px; overflow-y: auto; flex: 1; }
+
+.step-panel { display: none; animation: fadeUp .35s var(--ease) both; }
+.step-panel.active { display: block; }
+.step-heading { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 18px; letter-spacing: -.3px; }
+
+/* Service picker */
+.svc-pick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.svc-pick {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-radius: 14px;
+  border: 1.5px solid rgba(13,33,55,.1);
+  background: var(--off); cursor: pointer;
+  transition: all .22s var(--ease);
+}
+.svc-pick:hover { border-color: rgba(201,162,39,.5); background: rgba(201,162,39,.05); }
+.svc-pick.sel { border-color: var(--gold); background: rgba(201,162,39,.08); box-shadow: 0 0 0 3px rgba(201,162,39,.12); }
+.svc-pick .ico { font-size: 20px; flex-shrink: 0; }
+.svc-pick .lbl { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy); }
+
+/* Form elements */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-label { font-size: 12.5px; font-weight: 600; color: var(--t2); letter-spacing: .3px; }
+.form-input, .form-select, .form-textarea {
+  padding: 13px 16px; border-radius: 13px;
+  border: 1.5px solid rgba(13,33,55,.1);
+  background: var(--off); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--navy);
+  transition: border-color .22s, box-shadow .22s;
+  outline: none; width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,162,39,.12); background: #fff;
+}
+.form-textarea { resize: vertical; min-height: 88px; }
+
+/* Time slots */
+.time-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.time-slot {
+  padding: 10px 4px; border-radius: 11px; text-align: center;
+  border: 1.5px solid rgba(13,33,55,.1); background: var(--off);
+  font-size: 13px; font-weight: 600; color: var(--t2);
+  cursor: pointer; transition: all .2s var(--ease);
+  font-family: 'Outfit', sans-serif;
+}
+.time-slot:hover { border-color: rgba(201,162,39,.5); color: var(--navy); background: rgba(201,162,39,.06); }
+.time-slot.sel { border-color: var(--gold); background: rgba(201,162,39,.1); color: var(--navy); }
+.time-slot.unavail { opacity: .35; cursor: not-allowed; pointer-events: none; text-decoration: line-through; }
+
+/* Summary */
+.summary-card {
+  background: var(--off); border-radius: 16px; padding: 20px 22px;
+  border: 1px solid rgba(13,33,55,.07); margin-bottom: 18px;
+}
+.sum-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid rgba(13,33,55,.06); }
+.sum-row:last-child { border: none; padding-bottom: 0; }
+.sum-key { font-size: 13px; color: var(--t2); flex-shrink: 0; margin-right: 12px; }
+.sum-val { font-size: 13px; font-weight: 600; color: var(--navy); text-align: right; }
+
+/* Modal nav */
+.modal-nav { display: flex; gap: 10px; margin-top: 20px; }
+.btn-back {
+  padding: 13px 22px; border-radius: var(--r-pill); border: 1.5px solid rgba(13,33,55,.12);
+  background: transparent; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
+  color: var(--t2); cursor: pointer; transition: all .2s var(--ease);
+}
+.btn-back:hover { border-color: rgba(13,33,55,.25); color: var(--navy); }
+.btn-next {
+  flex: 1; padding: 13px; border-radius: var(--r-pill);
+  background: var(--navy); color: #fff; border: none;
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .25s var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  box-shadow: 0 4px 20px rgba(13,33,55,.28);
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,33,55,.38); }
+.btn-next:disabled { opacity: .42; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.btn-submit { background: var(--gold) !important; color: var(--navy) !important; box-shadow: 0 4px 20px rgba(201,162,39,.38) !important; }
+.btn-submit:hover { background: var(--gold-lt) !important; }
+
+/* Success */
+.success-screen { text-align: center; padding: 12px 8px 4px; }
+.success-ico {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; box-shadow: 0 8px 32px rgba(34,197,94,.3);
+  animation: popIn .5s var(--ease) both;
+}
+.success-screen h3 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 10px; letter-spacing: -.4px; }
+.success-screen p { font-size: 14.5px; color: var(--t2); line-height: 1.65; max-width: 340px; margin: 0 auto 24px; }
+.success-ref {
+  display: inline-block; background: var(--off); border: 1px solid rgba(13,33,55,.08);
+  border-radius: 12px; padding: 12px 22px;
+  font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--t2); margin-bottom: 22px;
+}
+.success-ref strong { color: var(--navy); }
+.note-text { font-size: 12px; color: var(--t3); line-height: 1.6; margin-bottom: 4px; }
+
+/* WhatsApp booking confirm button */
+.btn-wa-confirm {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  background: #25D366; color: #fff;
+  padding: 15px 34px; border-radius: var(--r-pill);
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 4px 22px rgba(37,211,102,.38);
+  transition: all .25s var(--ease);
+  margin-bottom: 12px;
+}
+.btn-wa-confirm:hover {
+  background: #20c05c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37,211,102,.48);
+}
+.btn-dismiss {
+  display: block; margin: 0 auto;
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  color: var(--t3); text-decoration: underline;
+  transition: color .2s;
+}
+.btn-dismiss:hover { color: var(--t2); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp  { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+@keyframes float   { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-9px); } }
+@keyframes blink   { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(.8); } }
+@keyframes breathe { 0%,100%{ transform:translate(-50%,-50%) scale(1); } 50%{ transform:translate(-50%,-50%) scale(1.15); } }
+@keyframes popIn   { 0%{ transform:scale(0); opacity:0; } 70%{ transform:scale(1.12); } 100%{ transform:scale(1); opacity:1; } }
+
+.reveal { opacity:0; transform:translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero { grid-template-columns:1fr; text-align:center; }
+  .hero-glass { padding:38px 26px; }
+  .hero-p { margin:0 auto 32px; }
+  .hero-btns { justify-content:center; }
+  .hero-stats { justify-content:center; }
+  .hero-visual { display:none; }
+  .why-grid { grid-template-columns:1fr; }
+  .feat-grid { grid-template-columns:1fr; }
+  .nav-links li:not(:last-child) { display:none; }
+}
+@media(max-width:640px){
+  section { padding:68px 5vw; }
+  .band { margin:0 4vw; padding:58px 6vw; }
+  .cta-box { padding:58px 22px; }
+  .svc-grid { grid-template-columns:1fr; }
+  .svc-pick-grid { grid-template-columns:1fr; }
+  .time-grid { grid-template-columns:repeat(3,1fr); }
+  .form-row { grid-template-columns:1fr; }
+  .modal { border-radius:20px; }
+  .modal-head { padding:22px 22px 20px; }
+  .modal-body { padding:22px 22px 26px; }
+  .social-sidebar { left: 10px; }
+  .wa-pulse-wrap { left: 10px; }
+  .foot-social { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<canvas id="bg"></canvas>
+<div class="bg-noise"></div>
+<div class="bg-grid"></div>
+
+<!-- ═══════════════ BOOKING MODAL ═══════════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true">
+
+    <div class="modal-head">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-title">Book a Cleaning</div>
+      <div class="modal-sub">TrueTide Facility Services · takes ~2 minutes</div>
+      <div class="steps-bar">
+        <div class="step-dot active" id="sd1">1</div>
+        <div class="step-line" id="sl1"></div>
+        <div class="step-dot" id="sd2">2</div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-dot" id="sd3">3</div>
+        <div class="step-line" id="sl3"></div>
+        <div class="step-dot" id="sd4">4</div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- STEP 1: Choose Service -->
+      <div class="step-panel active" id="panel1">
+        <div class="step-heading">What service do you need?</div>
+        <div class="svc-pick-grid">
+          <div class="svc-pick" data-svc="Residential Cleaning"><span class="ico">🧽</span><span class="lbl">Regular Cleaning</span></div>
+           <div class="svc-pick" data-svc="Residential Cleaning"><span class="ico">🏠</span><span class="lbl">Residential Cleaning</span></div>
+          <div class="svc-pick" data-svc="Commercial Cleaning"><span class="ico">🏢</span><span class="lbl">Commercial Cleaning</span></div>
+          <div class="svc-pick" data-svc="Deep Cleaning"><span class="ico">🧹</span><span class="lbl">Deep Cleaning</span></div>
+          <div class="svc-pick" data-svc="Event Cleaning"><span class="ico">🎉</span><span class="lbl">Event Cleaning</span></div>
+          <div class="svc-pick" data-svc="Post-Construction Cleaning"><span class="ico">🔨</span><span class="lbl">Post-Construction</span></div>
+          <div class="svc-pick" data-svc="Move-In / Move-Out Cleaning"><span class="ico">📦</span><span class="lbl">Move-In / Move-Out</span></div>
+          <div class="svc-pick" data-svc="Curtain Cleaning"><span class="ico">🏭</span><span class="lbl">Industrial Cleaning</span></div>
+          <div class="svc-pick" data-svc="Seasonal / One-Off Cleaning"><span class="ico">🌿</span><span class="lbl">Seasonal / One-Off</span></div>
+          <div class="svc-pick" data-svc="Seasonal / Holiday Cleaning for Schools"><span class="ico">🏫</span><span class="lbl">Holiday Cleaning for Schools</span></div>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-next" id="s1next" disabled>Select a service to continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Date & Time -->
+      <div class="step-panel" id="panel2">
+        <div class="step-heading">Pick a date &amp; time</div>
+        <div class="form-row" style="margin-bottom:14px">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Preferred Date</label>
+            <input class="form-input" type="date" id="bookDate">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Property Size</label>
+            <select class="form-select" id="bookSize">
+              <option value="">Select size</option>
+              <option>Studio / 1 Bedroom</option>
+              <option>2–3 Bedrooms</option>
+              <option>4+ Bedrooms</option>
+              <option>Small Office</option>
+              <option>Large Office / Commercial</option>
+              <option>Small School(less than 500 students)</option>
+              <option>Large School(500+ students)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Preferred Time Slot</label>
+          <div class="time-grid">
+            <div class="time-slot" data-time="7:00 AM">7:00 AM</div>
+            <div class="time-slot" data-time="8:00 AM">8:00 AM</div>
+            <div class="time-slot unavail">9:00 AM</div>
+            <div class="time-slot" data-time="10:00 AM">10:00 AM</div>
+            <div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+            <div class="time-slot unavail">12:00 PM</div>
+            <div class="time-slot" data-time="1:00 PM">1:00 PM</div>
+            <div class="time-slot" data-time="2:00 PM">2:00 PM</div>
+            <div class="time-slot" data-time="3:00 PM">3:00 PM</div>
+            <div class="time-slot" data-time="4:00 PM">4:00 PM</div>
+            <div class="time-slot unavail">5:00 PM</div>
+            <div class="time-slot" data-time="6:00 PM">6:00 PM</div>
+          </div>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" data-go="1">← Back</button>
+          <button class="btn-next" id="s2next" disabled>Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Contact -->
+      <div class="step-panel" id="panel3">
+        <div class="step-heading">Your contact details</div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">First Name</label>
+            <input class="form-input" type="text" id="fname" placeholder="e.g. Ama">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" type="text" id="lname" placeholder="e.g. Mensah">
+          </div>
+        </div>
+        <div style="height:14px"></div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input class="form-input" type="tel" id="phone" placeholder="e.g. 024 000 0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" id="email" placeholder="e.g. you@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Property / Location Address</label>
+          <input class="form-input" type="text" id="addr" placeholder="e.g. East Legon, Accra">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Additional Notes <span style="font-weight:400;color:var(--t3)">(optional)</span></label>
+          <textarea class="form-textarea" id="notes" placeholder="Anything specific we should know? e.g. pets, access instructions, areas of focus…"></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" data-go="2">← Back</button>
+          <button class="btn-next" id="s3next" disabled>Review Booking →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Review -->
+      <div class="step-panel" id="panel4">
+        <div class="step-heading">Review &amp; confirm</div>
+        <div class="summary-card" id="summaryCard"></div>
+        <p class="note-text">By confirming, you agree to be contacted by TrueTide to finalise your booking. No payment is collected at this stage.</p>
+        <div class="modal-nav">
+          <button class="btn-back" data-go="3">← Back</button>
+          <button class="btn-next btn-submit" id="s4submit">✓ Confirm Booking</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="step-panel" id="panel5">
+        <div class="success-screen">
+          <div class="success-ico">✓</div>
+          <h3>Booking Request Sent!</h3>
+          <p>Tap the button below to send your booking details directly to us on WhatsApp — we'll confirm within 2 hours.</p>
+          <div class="success-ref">Reference: <strong id="refCode">—</strong></div>
+          <a id="waBookingLink" href="#" target="_blank" rel="noopener" class="btn-wa-confirm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.533 5.851L.057 23.428a.75.75 0 0 0 .921.921l5.577-1.476A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.686-.524-5.204-1.435l-.364-.216-3.77.998.998-3.77-.216-.364A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Send via WhatsApp
+          </a>
+          <button class="btn-dismiss" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FLOATING SOCIAL SIDEBAR ═══════════════ -->
+<div class="wa-pulse-wrap"><div class="wa-pulse-ring"></div></div>
+<div class="social-sidebar">
+
+  <a href="https://www.tiktok.com/@truetide.facility.s?_r=1&_t=ZS-96sE1FmIJb2" class="social-pill tt" aria-label="TikTok" target="_blank" rel="noopener">
+    <span class="social-pill-ico">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69z"/></svg>
+    </span>
+    <span class="social-pill-lbl">TikTok</span>
+  </a>
+  <a href="https://www.instagram.com/truetide.facility.services/" class="social-pill ig" aria-label="Instagram" target="_blank" rel="noopener">
+    <span class="social-pill-ico">
+      <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3h-8.5zm10.75 1a1.25 1.25 0 110 2.5A1.25 1.25 0 0118.5 4zM12 7a5 5 0 110 10A5 5 0 0112 7zm0 1.5a3.5 3.5 0 100 7a3.5 3.5 0 000-7z"/></svg>
+    </span>
+    <span class="social-pill-lbl">Instagram</span>
+  </a>
+</div>
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <span class="nav-brand">True<span>Tide</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><button class="nav-book" onclick="openModal()">Book Now</button></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-glass">
+    <div class="hero-tag">Facility Services</div>
+    <h1 class="hero-h1">Make Your<br>Space <em>Shine</em><br>Today</h1>
+    <p class="hero-p">Reliable, affordable cleaning and facility services focused on quality and consistency — for homes and businesses alike.</p>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="openModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Book a Cleaning
+      </button>
+      <a href="#services" class="btn-s">View Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">500+</div><div class="stat-l">Jobs Completed</div></div>
+      <div><div class="stat-n">10</div><div class="stat-l">Service Types</div></div>
+      <div><div class="stat-n">100%</div><div class="stat-l">Satisfaction</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="fpill t"><span class="dot-g"></span>Available Now</div>
+    <div class="hero-card">
+      <div class="hero-img-grid">
+        <div class="hero-img tall"><img src="images\IMG_1103.JPG.jpeg"></div>
+        <div class="hero-img"><img src="images\WhatsApp Image 2026-06-04 at 11.27.55 AM.jpeg"></div>
+        <div class="hero-img"><img src="images\1st.jpeg"></div>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-ico">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="2.2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="badge-t"><strong>Trusted &amp; Professional</strong>Safe, high-quality cleaning products</div>
+      </div>
+    </div>
+    <div class="fpill b">⭐ 5-Star Rated Service</div>
+  </div>
+</section>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section id="services">
+  <p class="ey reveal">What We Offer</p>
+  <h2 class="st reveal d1">Everything Your<br>Space Needs</h2>
+  <p class="ss reveal d2">From routine tidying to deep post-construction restoration — handled with precision and care.</p>
+  <div class="svc-grid">
+    <div class="svc-card reveal"><div class="svc-ico si-b">🧽</div><div class="svc-name">Regular Cleaning</div><p class="svc-desc">Keep your space clean and organized with our regular cleaning services.</p><button class="svc-book-btn" onclick="openModal('Regular Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal"><div class="svc-ico si-b">🏠</div><div class="svc-name">Residential Cleaning</div><p class="svc-desc">Keep your home spotless with safe, eco-friendly products your family will love.</p><button class="svc-book-btn" onclick="openModal('Residential Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d1"><div class="svc-ico si-g">🏢</div><div class="svc-name">Commercial Cleaning</div><p class="svc-desc">Professional cleaning for offices — healthy, productive environments for your team.</p><button class="svc-book-btn" onclick="openModal('Commercial Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d2"><div class="svc-ico si-t">🎉</div><div class="svc-name">Event Cleaning</div><p class="svc-desc">Pre and post-event cleaning so your venue looks perfect before and after guests.</p><button class="svc-book-btn" onclick="openModal('Event Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal"><div class="svc-ico si-v">🧹</div><div class="svc-name">Deep Cleaning</div><p class="svc-desc">We sanitize hard-to-reach areas and disinfect every touchpoint thoroughly.</p><button class="svc-book-btn" onclick="openModal('Deep Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d1"><div class="svc-ico si-o">🔨</div><div class="svc-name">Post-Construction Cleaning</div><p class="svc-desc">All debris and dust removed after renovations — space ready to occupy.</p><button class="svc-book-btn" onclick="openModal('Post-Construction Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d2"><div class="svc-ico si-s">📦</div><div class="svc-name">Move-In / Move-Out</div><p class="svc-desc">Fresh, spotless space guaranteed for your new or vacated property.</p><button class="svc-book-btn" onclick="openModal('Move-In / Move-Out Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal"><div class="svc-ico si-r">🏭</div><div class="svc-name">Industrial Cleaning</div><p class="svc-desc">Specialized cleaning for industrial environments and equipment.</p><button class="svc-book-btn" onclick="openModal('Industrial Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d1"><div class="svc-ico si-e">🌿</div><div class="svc-name">Seasonal or One-Off</div><p class="svc-desc">Single thorough clean or seasonal refresh — ready for any job, large or small.</p><button class="svc-book-btn" onclick="openModal('Seasonal / One-Off Cleaning')">Book this →</button></div>
+    <div class="svc-card reveal d1"><div class="svc-ico si-e">🏫</div><div class="svc-name">Holiday Cleaning for Schools</div><p class="svc-desc">Specialized cleaning for schools during holiday periods to welcome pupils into a clean environment.</p><button class="svc-book-btn" onclick="openModal('Holiday Cleaning for Schools')">Book this →</button></div>
+  </div>
+</section>
+
+<!-- ═══════════════ DARK BAND ═══════════════ -->
+<div class="band reveal">
+  <p class="ey" style="position:relative;z-index:1">Most Popular</p>
+  <h2 class="st" style="margin-bottom:14px;position:relative;z-index:1">Our Signature<br>Services</h2>
+  <p class="ss" style="position:relative;z-index:1">Delivered with consistency and care every single time.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-ico">🧽</div><h3>Regular Cleaning</h3><p>Scheduled eco-friendly service to keep your home or office consistently clean and healthy.</p></div>
+    <div class="feat-card"><div class="feat-ico">🔬</div><h3>Deep Cleaning</h3><p>Beyond the surface — reaches grime in hard-to-access areas for a completely germ-free space.</p></div>
+    <div class="feat-card"><div class="feat-ico">🚛</div><h3>Move-In / Move-Out</h3><p>Moving is stressful enough. Your space is guaranteed fresh and spotless for whoever comes next.</p></div>
+    <div class="feat-card"><div class="feat-ico">🏗️</div><h3>Post-Construction</h3><p>Top-quality equipment clears all dust and debris, leaving your renovated space ready to use.</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════ WHY US ═══════════════ -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-vis reveal">
+      <div class="why-img"><img src="images\WhatsApp Image 2026-06-04 at 11.27.55 AM (1).jpeg"></div>
+      <div class="why-ov">
+        <div class="ov-ava">✨</div>
+        <div class="ov-t"><strong>TrueTide Guarantee</strong><span>Every clean, every time</span></div>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+    <div>
+      <p class="ey reveal">Why TrueTide</p>
+      <h2 class="st reveal d1">Quality You Can<br>Count On</h2>
+      <p class="ss reveal d2" style="margin-bottom:28px">We don't just clean — we take pride in every space we touch.</p>
+      <ul class="why-list">
+        <li class="why-item reveal"><div class="wi-ico">🏅</div><div class="wi-t"><h4>Trusted &amp; Professional Cleaners</h4><p>Trained, vetted, committed to the highest standard on every visit.</p></div></li>
+        <li class="why-item reveal d1"><div class="wi-ico">🌱</div><div class="wi-t"><h4>Safe, High-Quality Products</h4><p>Eco-friendly, non-toxic products safe for your family, pets, and the planet.</p></div></li>
+        <li class="why-item reveal"><div class="wi-ico">🔍</div><div class="wi-t"><h4>Critical Attention to Detail</h4><p>No corner overlooked — we clean the spaces others miss.</p></div></li>
+        <li class="why-item reveal d1"><div class="wi-ico">💰</div><div class="wi-t"><h4>Affordable Pricing</h4><p>Premium service at transparent, competitive pricing for every budget.</p></div></li>
+        <li class="why-item reveal"><div class="wi-ico">💬</div><div class="wi-t"><h4>Excellent Customer Service</h4><p>From your first call to the final walkthrough — with you every step.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<div class="cta-wrap" id="contact">
+  <div class="cta-box reveal">
+    <p class="cta-ey">Get in Touch</p>
+    <h2 class="cta-h">Too Busy to Clean?<br>Let Us Handle It.</h2>
+    <p class="cta-p">Spotless spaces, time saved for what really matters, and reliable professionals you can trust.</p>
+    <button class="cta-book-btn" onclick="openModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Book a Cleaning Now
+    </button>
+    <div class="cta-pills">
+      <a href="tel:0554149819" class="cpill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        055 414 9819
+      </a>
+      <a href="tel:0534261499" class="cpill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.06 2.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        053 426 1499
+      </a>
+    </div>
+    <p class="cta-email">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      truetide.fs@gmail.com
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div>
+    <div class="foot-brand">True<span>Tide</span> Facility Services</div>
+    <div class="foot-tag">Reliable. Affordable. Consistent.</div>
+  </div>
+    <ul class="foot-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="foot-copy">© 2025 TrueTide Facility Services</div>
+</footer>
+
+<script>
+/* ── ANIMATED CANVAS BACKGROUND ── */
+(function(){
+  const c=document.getElementById('bg'),ctx=c.getContext('2d'); let W,H;
+  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  resize(); addEventListener('resize',resize,{passive:true});
+  const orbs=[
+    {x:.12,y:.1, r:.42,col:'rgba(13,33,55,.05)',  sx:.00013,sy:.00008},
+    {x:.86,y:.14,r:.34,col:'rgba(201,162,39,.04)',sx:-.0001, sy:.00011},
+    {x:.5, y:.42,r:.46,col:'rgba(30,74,118,.038)',sx:.00007, sy:-.00013},
+    {x:.07,y:.62,r:.38,col:'rgba(201,162,39,.03)',sx:.0001,  sy:.00007},
+    {x:.9, y:.67,r:.32,col:'rgba(13,33,55,.046)', sx:-.00009,sy:-.0001},
+    {x:.38,y:.82,r:.4, col:'rgba(30,74,118,.034)',sx:.00011, sy:.00007},
+    {x:.72,y:.92,r:.28,col:'rgba(201,162,39,.036)',sx:-.00006,sy:.0001},
+  ];
+  let t=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const bg=ctx.createLinearGradient(0,0,W*.6,H);
+    bg.addColorStop(0,'#f9fafb'); bg.addColorStop(.5,'#f6f8fb'); bg.addColorStop(1,'#f8f9fc');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    orbs.forEach(o=>{
+      const cx=(o.x+Math.sin(t*o.sx*4200+o.r)*.065)*W;
+      const cy=(o.y+Math.cos(t*o.sy*4200+o.r)*.065)*H;
+      const rad=o.r*Math.max(W,H);
+      const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
+      g.addColorStop(0,o.col);
+      g.addColorStop(.55,o.col.replace(/[\d.]+\)$/,m=>(parseFloat(m)*.36).toFixed(3)+')'));
+      g.addColorStop(1,'transparent');
+      ctx.fillStyle=g; ctx.beginPath();
+      ctx.ellipse(cx,cy,rad,rad*.82,t*.00028,0,Math.PI*2); ctx.fill();
+    });
+    t++; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── NAV ── */
+addEventListener('scroll',()=>{
+  document.getElementById('mainNav').style.boxShadow = scrollY>28?'0 1px 44px rgba(13,33,55,.09)':'none';
+},{passive:true});
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+}),{threshold:.1,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ════════════════════════════════
+   BOOKING MODAL
+════════════════════════════════ */
+let booking={service:'',date:'',time:'',size:'',fname:'',lname:'',phone:'',email:'',addr:'',notes:''};
+let step=1;
+
+/* Open / close */
+function openModal(preselect){
+  resetModal();
+  if(preselect){ selectService(preselect); goTo(2); } else { goTo(1); }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+window.openModal=openModal;
+window.closeModal=closeModal;
+
+function resetModal(){
+  booking={service:'',date:'',time:'',size:'',fname:'',lname:'',phone:'',email:'',addr:'',notes:''};
+  document.querySelectorAll('.svc-pick').forEach(e=>e.classList.remove('sel'));
+  document.querySelectorAll('.time-slot:not(.unavail)').forEach(e=>e.classList.remove('sel'));
+  ['bookDate','bookSize','fname','lname','phone','email','addr','notes'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('s1next').disabled=true;
+  document.getElementById('s1next').textContent='Select a service to continue';
+  document.getElementById('s2next').disabled=true;
+  document.getElementById('s3next').disabled=true;
+}
+
+/* Step navigation */
+function goTo(n){
+  step=n;
+  for(let i=1;i<=5;i++) document.getElementById('panel'+i).classList.remove('active');
+  document.getElementById('panel'+n).classList.add('active');
+  for(let i=1;i<=4;i++){
+    const d=document.getElementById('sd'+i);
+    d.classList.remove('active','done');
+    if(i===n) d.classList.add('active');
+    else if(i<n) d.classList.add('done');
+  }
+  for(let i=1;i<=3;i++){
+    document.getElementById('sl'+i).classList.toggle('done',i<n);
+  }
+  if(n===4) buildSummary();
+}
+
+/* SERVICE SELECTION */
+function selectService(svc){
+  booking.service=svc;
+  document.querySelectorAll('.svc-pick').forEach(e=>e.classList.toggle('sel',e.dataset.svc===svc));
+  const btn=document.getElementById('s1next');
+  btn.disabled=false;
+  btn.textContent='Continue with "'+svc+'" →';
+}
+document.querySelectorAll('.svc-pick').forEach(e=>e.addEventListener('click',()=>selectService(e.dataset.svc)));
+document.getElementById('s1next').addEventListener('click',()=>{ if(booking.service) goTo(2); });
+
+/* DATE / TIME */
+document.getElementById('bookDate').min=new Date().toISOString().split('T')[0];
+document.getElementById('bookDate').addEventListener('change',e=>{ booking.date=e.target.value; chk2(); });
+document.getElementById('bookSize').addEventListener('change',e=>{ booking.size=e.target.value; chk2(); });
+document.querySelectorAll('.time-slot:not(.unavail)').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.time-slot').forEach(t=>t.classList.remove('sel'));
+    el.classList.add('sel'); booking.time=el.dataset.time; chk2();
+  });
+});
+function chk2(){ document.getElementById('s2next').disabled=!(booking.date&&booking.time&&booking.size); }
+document.getElementById('s2next').addEventListener('click',()=>goTo(3));
+
+/* CONTACT FORM */
+['fname','lname','phone','email','addr'].forEach(id=>document.getElementById(id).addEventListener('input',chk3));
+function chk3(){
+  booking.fname=document.getElementById('fname').value.trim();
+  booking.lname=document.getElementById('lname').value.trim();
+  booking.phone=document.getElementById('phone').value.trim();
+  booking.email=document.getElementById('email').value.trim();
+  booking.addr =document.getElementById('addr').value.trim();
+  booking.notes=document.getElementById('notes').value.trim();
+  document.getElementById('s3next').disabled=!(booking.fname&&booking.lname&&booking.phone&&booking.email&&booking.addr);
+}
+document.getElementById('s3next').addEventListener('click',()=>goTo(4));
+
+/* SUMMARY */
+function buildSummary(){
+  const d=new Date(booking.date+'T00:00');
+  const ds=d.toLocaleDateString('en-GH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('summaryCard').innerHTML=`
+    <div class="sum-row"><span class="sum-key">Service</span><span class="sum-val">${booking.service}</span></div>
+    <div class="sum-row"><span class="sum-key">Date</span><span class="sum-val">${ds}</span></div>
+    <div class="sum-row"><span class="sum-key">Time</span><span class="sum-val">${booking.time}</span></div>
+    <div class="sum-row"><span class="sum-key">Property Size</span><span class="sum-val">${booking.size}</span></div>
+    <div class="sum-row"><span class="sum-key">Name</span><span class="sum-val">${booking.fname} ${booking.lname}</span></div>
+    <div class="sum-row"><span class="sum-key">Phone</span><span class="sum-val">${booking.phone}</span></div>
+    <div class="sum-row"><span class="sum-key">Email</span><span class="sum-val">${booking.email}</span></div>
+    <div class="sum-row"><span class="sum-key">Address</span><span class="sum-val">${booking.addr}</span></div>
+    ${booking.notes?`<div class="sum-row"><span class="sum-key">Notes</span><span class="sum-val">${booking.notes}</span></div>`:''}
+  `;
+}
+
+/* SUBMIT */
+document.getElementById('s4submit').addEventListener('click',()=>{
+  const ref='TT-'+Date.now().toString(36).toUpperCase().slice(-6);
+  document.getElementById('refCode').textContent=ref;
+
+  // Build pre-filled WhatsApp message
+  const d = new Date(booking.date+'T00:00');
+  const ds = d.toLocaleDateString('en-GH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const msg =
+`Hello TrueTide! 👋 I'd like to book a cleaning service.
+
+📋 *Booking Details*
+• Reference: ${ref}
+• Service: ${booking.service}
+• Date: ${ds}
+• Time: ${booking.time}
+• Property Size: ${booking.size}
+
+👤 *Contact Info*
+• Name: ${booking.fname} ${booking.lname}
+• Phone: ${booking.phone}
+• Email: ${booking.email}
+• Address: ${booking.addr}${booking.notes ? `\n\n📝 Notes: ${booking.notes}` : ''}
+
+Please confirm my booking. Thank you!`;
+
+  const waURL = 'https://wa.me/233554149819?text=' + encodeURIComponent(msg);
+  document.getElementById('waBookingLink').href = waURL;
+
+  goTo(5);
+});
+
+/* BACK BUTTONS */
+document.querySelectorAll('.btn-back').forEach(b=>b.addEventListener('click',()=>goTo(parseInt(b.dataset.go))));
+
+/* CLOSE */
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modalOverlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
